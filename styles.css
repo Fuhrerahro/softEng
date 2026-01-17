@@ -1,0 +1,628 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #000000;
+    --accent-color: #2563eb;
+    /* Royal Blue */
+    --text-dark: #1a1a1a;
+    --text-medium: #4b5563;
+    --text-light: #ffffff;
+    --bg-body: #f8f9fa;
+    --bg-card: #ffffff;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-body);
+    color: var(--text-dark);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Header & Navigation */
+header {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 0.5rem 0;
+    /* Reduced padding */
+    transition: all 0.3s ease;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+/* Logo - Centered */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: var(--text-dark);
+}
+
+.tagline {
+    font-size: 0.875rem;
+    color: var(--text-medium);
+    margin-left: 0.5rem;
+    border-left: 1px solid #e5e7eb;
+    padding-left: 0.75rem;
+    white-space: nowrap;
+}
+
+/* Navigation Links - Hidden by default, toggled via Hamburger */
+.nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+}
+
+.nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-medium);
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Hamburger Menu - Left Side */
+.hamburger {
+    display: flex;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0.5rem;
+    z-index: 10;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+/* Mobile Nav State */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* Search Icon - Right Side */
+.search-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--text-dark);
+    transition: color 0.2s;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-toggle:hover {
+    color: var(--primary-color);
+}
+
+/* Header Search Bar (Hidden by default) */
+.header-search-bar {
+    background: white;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    z-index: 999;
+}
+
+.header-search-bar.hidden {
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+}
+
+.search-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 9999px;
+    font-size: 1rem;
+    outline: none;
+    font-family: var(--font-sans);
+}
+
+.search-form button {
+    padding: 0.75rem 1.5rem;
+    background: var(--text-dark);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-form button:hover {
+    background: var(--primary-color);
+}
+
+/* Hero Section with Ticker */
+/* Hero Section with Ticker */
+.hero {
+    background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+    padding: 0;
+    /* Removed padding for app-like feel */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Ticker Container */
+.news-ticker-container {
+    width: 100%;
+    background: #111827;
+    color: white;
+    display: flex;
+    align-items: stretch;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    height: 50px;
+    /* More compact height */
+    overflow: hidden;
+}
+
+/* "BREAKING NEWS" Label */
+/* "FEATURED" Label */
+.ticker-label {
+    background: var(--accent-color);
+    /* Royal Blue */
+    color: white;
+    font-weight: 700;
+    /* Slightly less bold */
+    padding: 0 0.75rem;
+    /* Reduced padding */
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    /* Smaller size */
+    letter-spacing: 0.05em;
+    z-index: 10;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Scrolling Wrapper */
+.ticker-wrapper {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #111827;
+    /* Dark background for text */
+}
+
+/* Animated Content Container */
+.ticker-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+}
+
+/* Headline Styles */
+/* Headline Styles */
+.ticker-headline {
+    position: absolute;
+    left: 1.5rem;
+    font-size: 1.25rem;
+    /* Even Larger */
+    font-weight: 700;
+    /* Extra Bold */
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    /* Stronger shadow */
+    opacity: 0;
+    transition: all 0.5s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 3rem);
+}
+
+/* Base styles for Vertical Slide States (unchanged) */
+.slide-enter {
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+.slide-active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.slide-exit {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+/* Mobile Adjustments for Carousel */
+@media (max-width: 640px) {
+    .ticker-label {
+        padding: 0 1rem;
+        font-size: 0.8rem;
+    }
+
+    .ticker-headline {
+        left: 1rem;
+        /* Less left padding */
+        font-size: 1rem;
+        max-width: calc(100% - 2rem);
+    }
+
+    .ticker-content {
+        padding-left: 1rem;
+    }
+}
+
+/* Hide old hero elements */
+.hero h1,
+.hero p,
+.search-box-placeholder {
+    display: none;
+}
+
+/* Main Content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 2rem;
+    /* Reduced top padding from 4rem */
+}
+
+.featured-section {
+    margin-bottom: 5rem;
+}
+
+h2 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text-dark);
+    letter-spacing: -0.025em;
+}
+
+.featured-grid,
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+}
+
+/* Card Styles */
+.news-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-image {
+    height: 220px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: #e5e7eb;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.news-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-category {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+    color: var(--text-dark);
+}
+
+.card-description {
+    font-size: 0.95rem;
+    color: var(--text-medium);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.card-description.collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: 4.8rem;
+}
+
+.desc-toggle {
+    background: none;
+    border: none;
+    color: var(--text-medium);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-bottom: 1rem;
+}
+
+.card-meta {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid #f3f4f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #9ca3af;
+}
+
+.read-more {
+    color: var(--text-dark);
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: color 0.2s;
+}
+
+.read-more:hover {
+    color: var(--accent-color);
+}
+
+/* Newsletter */
+.newsletter {
+    background: #111827;
+    color: white;
+    border-radius: var(--radius-lg);
+    padding: 4rem 2rem;
+    text-align: center;
+    margin: 4rem 0;
+}
+
+.newsletter h2 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.newsletter p {
+    color: #9ca3af;
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+}
+
+.newsletter-form {
+    max-width: 420px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid #374151;
+    background: #1f2937;
+    color: white;
+    font-size: 1rem;
+}
+
+.newsletter-form button {
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-md);
+    background: white;
+    color: black;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+/* Footer */
+footer {
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    padding: 4rem 2rem 2rem;
+    color: var(--text-medium);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-section h3 {
+    color: var(--text-dark);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-section ul li a {
+    color: var(--text-medium);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-section ul li a:hover {
+    color: var(--text-dark);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .tagline {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero {
+        padding: 6rem 1rem 4rem;
+    }
+
+    .hero h1 {
+        font-size: 2.25rem;
+    }
+
+    .news-grid,
+    .featured-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+}
