@@ -1,11 +1,11 @@
 // Service Worker for ReadRelief PWA
-const CACHE_NAME = 'readrelief-v1';
+const CACHE_NAME = 'readrelief-v2';
 const urlsToCache = [
-'/',
-'/index.html',
-'/styles.css',
-'/script.js',
-'/manifest.json'
+    '/',
+    '/index.html',
+    '/styles.css',
+    '/script.js',
+    '/manifest.json'
 ];
 
 // Install event - cache files

@@ -17,7 +17,7 @@
     <link rel="manifest" href="manifest.json">
 </head>
 
-<body> <!-- Accessibility options removed to restore normal site behavior --> <!-- Header -->
+<body> <!-- Header -->
     <header>
         <div class="header-container">
             <!-- Left: Hamburger -->
@@ -28,7 +28,7 @@
             </button>
 
             <!-- Center: Logo -->
-            <a href="." class="logo-wrapper" aria-label="Reload page">
+            <a href="index.html" class="logo-wrapper" aria-label="Reload page">
                 <img src="logo.png" alt="ReadRelief Logo" class="header-logo" loading="lazy">
                 <div>
                     <span class="logo">ReadRelief</span>
@@ -51,6 +51,20 @@
                 <a href="#featured">Featured</a>
                 <a href="#categories">Categories</a>
                 <a href="#contact">Contact</a>
+
+                <!-- Text Resizer Controls (Moved to Menu) -->
+                <div class="menu-text-controls" aria-label="Text size controls">
+                    <span style="font-size: 0.9rem; color: #666; margin-right: 10px;">Text Size:</span>
+                    <button id="decrease-text" aria-label="Decrease text size" title="Smaller Text">A-</button>
+                    <button id="reset-text" aria-label="Reset text size" title="Reset Size">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                            <path d="M3 3v5h5"></path>
+                        </svg>
+                    </button>
+                    <button id="increase-text" aria-label="Increase text size" title="Larger Text">A+</button>
+                </div>
             </nav>
         </div>
         <!-- Hidden Search Bar -->
@@ -73,7 +87,7 @@
     </section> <!-- Main Content -->
     <div class="container"> <!-- Featured News -->
         <section class="featured-section" id="featured">
-            <h2>Featured Stories</h2>
+            <h2>News</h2>
             <div class="featured-grid">
                 <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
                     <p>Loading news...</p>
@@ -85,6 +99,9 @@
                 Latest News <div
                     style="width: 60px; height: 2px; background: #333; border-radius: 1px; margin-top: 1rem;"></div>
             </h2>
+            <div class="category-filters" id="category-filters">
+                <!-- Category buttons will be injected here -->
+            </div>
             <div class="news-grid">
                 <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
                     <p>Loading news...</p>
@@ -103,28 +120,28 @@
             <div class="footer-section">
                 <h3>About ReadRelief</h3>
                 <ul>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#team">Our Team</a></li>
-                    <li><a href="#careers">Careers</a></li>
-                    <li><a href="#press">Press Kit</a></li>
+                    <li><a href="#" id="footer-about">About Us</a></li>
+                    <li><a href="#" id="footer-team">Our Team</a></li>
+                    <li><a href="#" id="footer-careers">Careers</a></li>
+                    <li><a href="#" id="footer-press">Press Kit</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Categories</h3>
                 <ul>
-                    <li><a href="#world">World</a></li>
-                    <li><a href="#tech">Technology</a></li>
-                    <li><a href="#business">Business</a></li>
-                    <li><a href="#sports">Sports</a></li>
+                    <li><a href="#" class="footer-category" data-category="World">World</a></li>
+                    <li><a href="#" class="footer-category" data-category="Technology">Technology</a></li>
+                    <li><a href="#" class="footer-category" data-category="Business">Business</a></li>
+                    <li><a href="#" class="footer-category" data-category="Sports">Sports</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Legal</h3>
                 <ul>
-                    <li><a href="#privacy">Privacy Policy</a></li>
-                    <li><a href="#terms">Terms of Service</a></li>
-                    <li><a href="#cookies">Cookie Policy</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" id="footer-privacy">Privacy Policy</a></li>
+                    <li><a href="#" id="footer-terms">Terms of Service</a></li>
+                    <li><a href="#" id="footer-cookies">Cookie Policy</a></li>
+                    <li><a href="#" id="footer-contact">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -141,6 +158,17 @@
             <p>&copy; 2026 ReadRelief. All rights reserved. | Designed with care</p>
         </div>
     </footer>
+
+    <!-- Footer Modal -->
+    <div id="footer-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Modal Title</h2>
+            <div id="modal-body">
+                <!-- Content will be injected here -->
+            </div>
+        </div>
+    </div>
     <script src="script.js" defer></script>
 </body>
 

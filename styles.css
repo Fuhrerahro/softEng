@@ -1,3 +1,4 @@
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -51,6 +52,8 @@ header {
     justify-content: space-between;
     align-items: center;
     position: relative;
+    height: 60px;
+    /* Fixed height to ensure alignment */
 }
 
 /* Logo - Centered */
@@ -63,6 +66,10 @@ header {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    white-space: nowrap;
+    /* Prevent wrapping */
+    z-index: 5;
+    /* Ensure above other elements if close */
 }
 
 .header-logo {
@@ -176,6 +183,79 @@ header {
     color: var(--primary-color);
 }
 
+/* Text Resizer Controls (Inside Menu) */
+.menu-text-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    width: 100%;
+}
+
+.menu-text-controls button {
+    background: transparent;
+    border: 1px solid #e5e7eb;
+    color: var(--text-dark);
+    font-weight: 700;
+    font-size: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.menu-text-controls button:hover {
+    background: var(--text-dark);
+    color: white;
+}
+
+/* Responsive Handling */
+@media (max-width: 768px) {
+    .tagline {
+        display: none;
+        /* Hide tagline sooner */
+    }
+
+
+}
+
+/* Show controls again on very large mobile if space permits? 
+   Actually, better to hide them on mobile to guarantee no overlap 
+   unless we move them to a second row or menu. 
+   For "Elderly Friendly", accessibility on mobile is Key. 
+   Let's try to keep them but maybe remove the border or Make logo smaller? 
+*/
+
+@media (max-width: 600px) {
+    .logo {
+        font-size: 1rem;
+        /* Much smaller logo on mobile */
+    }
+
+    .header-logo {
+        height: 28px;
+        /* Smaller icon */
+    }
+
+    .logo-wrapper {
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .logo {
+        display: none;
+        /* Hide text on very narrow screens */
+    }
+}
+
 /* Header Search Bar (Hidden by default) */
 .header-search-bar {
     background: white;
@@ -233,7 +313,6 @@ header {
 }
 
 /* Hero Section with Ticker */
-/* Hero Section with Ticker */
 .hero {
     background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
     padding: 0;
@@ -254,29 +333,36 @@ header {
     display: flex;
     align-items: stretch;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    height: 50px;
-    /* More compact height */
+    height: 60px;
+    /* Increased height for stacked layout */
     overflow: hidden;
 }
 
-/* "BREAKING NEWS" Label */
 /* "FEATURED" Label */
 .ticker-label {
-    background: var(--accent-color);
-    /* Royal Blue */
+    position: absolute;
+    /* Float top-left */
+    left: 0;
+    top: 0;
+    width: auto;
+    height: 24px;
+    /* Increased height */
+    bottom: auto;
+    /* Do not stretch to bottom */
+    background: #0056b3;
     color: white;
-    font-weight: 700;
-    /* Slightly less bold */
-    padding: 0 0.75rem;
-    /* Reduced padding */
+    font-weight: 800;
+    padding: 0 1.5rem 0 1rem;
     display: flex;
     align-items: center;
     white-space: nowrap;
     font-size: 0.75rem;
-    /* Smaller size */
+    /* Increased size */
     letter-spacing: 0.05em;
-    z-index: 10;
-    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 20;
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+    /* Slanted right */
+    text-transform: uppercase;
 }
 
 /* Scrolling Wrapper */
@@ -287,7 +373,7 @@ header {
     display: flex;
     align-items: center;
     background: #111827;
-    /* Dark background for text */
+    width: 100%;
 }
 
 /* Animated Content Container */
@@ -296,28 +382,35 @@ header {
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
-    padding-left: 2rem;
+    align-items: flex-end;
+    /* Align text to bottom area */
+    padding-left: 1rem;
+    /* Reset padding, text starts left */
+    padding-bottom: 8px;
+    /* Space from bottom */
 }
 
 /* Headline Styles */
-/* Headline Styles */
 .ticker-headline {
     position: absolute;
-    left: 1.5rem;
-    font-size: 1.25rem;
-    /* Even Larger */
+    left: 1rem;
+    /* Start from left */
+    right: 1rem;
+    bottom: 8px;
+    /* Position at bottom */
+    top: auto;
+    /* Unset top */
+    font-size: 1.1rem;
     font-weight: 700;
-    /* Extra Bold */
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    /* Stronger shadow */
     opacity: 0;
     transition: all 0.5s ease;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: calc(100% - 3rem);
+    line-height: 1.2;
+    max-width: 100%;
 }
 
 /* Base styles for Vertical Slide States (unchanged) */
@@ -366,18 +459,63 @@ header {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 2rem;
-    /* Reduced top padding from 4rem */
+    padding: 0.5rem 2rem 2rem;
+    /* Reduced top padding */
+}
+
+/* Category Filters */
+.category-filters {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+    /* smooth scrolling on iOS */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.category-filters::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+}
+
+.category-btn {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    color: var(--text-medium);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.category-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: #f0f9ff;
+}
+
+.category-btn.active {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-md);
 }
 
 .featured-section {
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 }
 
 h2 {
     font-size: 2.25rem;
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     color: var(--text-dark);
     letter-spacing: -0.025em;
 }
@@ -404,6 +542,48 @@ h2 {
 .news-card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
+}
+
+.tts-btn {
+    background: transparent;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tts-btn:hover {
+    background: #eff6ff;
+    transform: scale(1.1);
+}
+
+.tts-btn.speaking {
+    color: #ef4444;
+    /* Red for stop state */
+    background: #fef2f2;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    }
+
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    }
 }
 
 .card-image {
@@ -609,20 +789,157 @@ footer {
 }
 
 @media (max-width: 640px) {
+    .container {
+        padding: 0.5rem 1rem 1.5rem;
+    }
+
     .hero {
-        padding: 6rem 1rem 4rem;
+        padding: 0;
     }
 
     .hero h1 {
-        font-size: 2.25rem;
+        font-size: 1.8rem;
+    }
+
+    .featured-section {
+        margin-bottom: 2rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1rem !important;
     }
 
     .news-grid,
     .featured-grid {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .news-card {
+        border-radius: var(--radius-md);
+    }
+
+    .card-content {
+        padding: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-description {
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .newsletter {
+        padding: 2.5rem 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .newsletter h2 {
+        font-size: 1.5rem;
     }
 
     .newsletter-form {
         flex-direction: column;
+        gap: 0.75rem;
     }
+
+    footer {
+        padding: 2.5rem 1rem 1.5rem;
+    }
+
+    .footer-content {
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .footer-section h3 {
+        margin-bottom: 0.75rem;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Footer Modal */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 2000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black w/ opacity */
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    /* Activate flex for centering */
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 2rem;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 600px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal.show .modal-content {
+    transform: translateY(0);
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modal-title {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+#modal-body {
+    line-height: 1.6;
+    color: var(--text-medium);
+}
+
+#modal-body p {
+    margin-bottom: 1rem;
 }
